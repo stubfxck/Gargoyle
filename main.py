@@ -3,11 +3,9 @@ import disnake
 from disnake.ext import commands
 from membercount import update_member_count
 from config import BOT_TOKEN, GUILD_ID, MEMBER_COUNT_CHANNEL_NEED, MEMBER_COUNT_CHANNEL, MEMBER_COUNT_UPDATE_INTERVAL
-import asyncio
 import datetime
 
-# Инициализируем бота с префиксом "!" и всеми необходимыми интентами
-bot = commands.Bot(command_prefix="!", intents=disnake.Intents.all())
+bot = commands.InteractionBot(intents=disnake.Intents.all())
 
 @bot.slash_command(guild_id=GUILD_ID)
 async def detect_language(inter: disnake.ApplicationCommandInteraction, member: disnake.Member = None):
@@ -18,13 +16,14 @@ async def detect_language(inter: disnake.ApplicationCommandInteraction, member: 
 
     if 1371106230831026256 in role_ids:
         title = "Детект языка"
-        desc = f"Ваш язык: РУ"
+        desc = f"Ваш язык: <@&1371106230831026256>"
     elif 1371106275370471484 in role_ids:
         title = "Lang detect"
-        desc = f"Your language: EN"
+        desc = f"Your language: <@&1371106275370471484>"
     else:
         title = "Lang detect"
-        desc = f"Your language: EN"
+        desc = f"Your language: <@&1371106275370471484> (by default, because you don't have any language role)"
+
 
     embed = disnake.Embed(
              title=title,
